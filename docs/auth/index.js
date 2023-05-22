@@ -3,10 +3,10 @@ const managerialLogin = require('./login');
 
 module.exports = {
     paths:{
-        '/admin/auth/register':{
+        '/auth/register':{
             ...managerialRegistration
         },
-        '/admin/auth/login':{
+        '/auth/login':{
             ...managerialLogin
         }
         // '/todos/{id}':{

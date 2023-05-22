@@ -1,8 +1,8 @@
 module.exports = {
     post: {
-        tags: ["Managerial Authentication"], // operation's tag
-        description: "Register Admin/Moderator", // short desc
-        operationId: "managerialRegister", // unique operation id
+        tags: ["Authentication"], // operation's tag
+        description: "Register User", // short desc
+        operationId: "register", // unique operation id
         parameters: [], // expected params
         requestBody: {
           // expected request body
@@ -10,7 +10,7 @@ module.exports = {
             // content-type
             "application/json": {
               schema: {
-                $ref: "#/components/schemas/managerial_reg", // todo input data model
+                $ref: "#/components/schemas/reg", // todo input data model
               },
             },
           },

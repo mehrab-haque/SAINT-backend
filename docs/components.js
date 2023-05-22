@@ -2,7 +2,7 @@
 module.exports = {
     components:{
         schemas:{
-            managerial_reg:{
+            reg:{
                 hidden:true,
                 type:"object",
                 properties:{
@@ -16,19 +16,14 @@ module.exports = {
                         description:"password used for registration",
                         example:"password_string"
                     },
-                    name:{
-                        type:"string",
-                        description:"name used for registration",
-                        example:"name_string"
-                    },
                     type:{
                         type:"integer",
-                        description:"admin=1,moderator=2",
+                        description:"email+pass=1",
                         example:1
                     }
                 }
             },
-            managerial_login:{
+            login:{
                 hidden:true,
                 type:"object",
                 properties:{
