@@ -1,7 +1,7 @@
 module.exports = {
     tags: [
         {
-          name: "Managerial Authentication"
+          name: "Authentication"
         }
       ],
 }

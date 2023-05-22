@@ -1,8 +1,8 @@
 module.exports = {
     post: {
-        tags: ["Managerial Authentication"], // operation's tag
-        description: "Login Admin/Moderator", // short desc
-        operationId: "managerialLogin", // unique operation id
+        tags: ["Authentication"], // operation's tag
+        description: "Login User", // short desc
+        operationId: "login", // unique operation id
         parameters: [], // expected params
         requestBody: {
           // expected request body
@@ -10,7 +10,7 @@ module.exports = {
             // content-type
             "application/json": {
               schema: {
-                $ref: "#/components/schemas/managerial_login", // todo input data model
+                $ref: "#/components/schemas/login", // todo input data model
               },
             },
           },
@@ -31,7 +31,7 @@ module.exports = {
             }
           },
           "400": {
-            "description": "Registration Failed",
+            "description": "Login Failed",
             "schema": {
               "type": "object",
               "properties": {
