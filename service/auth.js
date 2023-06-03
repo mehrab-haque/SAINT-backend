@@ -10,14 +10,6 @@ class AuthService extends Service {
     signToken = user =>{
         return JWT.sign(user, process.env.JWT_SECRET);
     }
-    register=async (reqObj)=>{
-        const salt = await bcrypt.genSalt(10)
-        const hashedPass = await bcrypt.hash(reqObj.password,salt)
-        var query=`INSERT INTO auth(type,login,password) VALUES($1,$2,$3)`
-        var params=[reqObj.type,reqObj.login,hashedPass]
-        var result=await this.query(query,params)
-        return result
-    }
 
     anonymousLogin=async ()=>{
         var query=`INSERT INTO saint_user(type) VALUES($1) returning id`
@@ -44,23 +36,25 @@ class AuthService extends Service {
             const salt = await bcrypt.genSalt(10)
             const hashedPass = await bcrypt.hash(password,salt)
             if(anonymousToken && anonymousToken.length>0){
-                var decoded = JWT.verify(anonymousToken, process.env.JWT_SECRET);
-                if(decoded.type===accountTypes.anonymousUser){
-                    //update
-                    var updateQuery=`UPDATE saint_user SET type = $1 , login = $2 , password = $3 WHERE id = $4`
-                    var updateParams=[accountTypes.userEmailPassword,login,hashedPass,decoded.id]
-                    await this.query(updateQuery,updateParams)
-                    var updatedTokenObject={
-                        id:decoded.id,
-                        type:accountTypes.userEmailPassword,
-                        createdAt:Date.now()
+                try{
+                    var decoded = JWT.verify(anonymousToken, process.env.JWT_SECRET);
+                    if(decoded.type===accountTypes.anonymousUser){
+                        //update
+                        var updateQuery=`UPDATE saint_user SET type = $1 , login = $2 , password = $3 WHERE id = $4`
+                        var updateParams=[accountTypes.userEmailPassword,login,hashedPass,decoded.id]
+                        await this.query(updateQuery,updateParams)
+                        var updatedTokenObject={
+                            id:decoded.id,
+                            type:accountTypes.userEmailPassword,
+                            createdAt:Date.now()
+                        }
+                        const updatedToken=this.signToken(updatedTokenObject)
+                        return{
+                            success:true,
+                            token:updatedToken
+                        }
                     }
-                    const updatedToken=this.signToken(updatedTokenObject)
-                    return{
-                        success:true,
-                        token:updatedToken
-                    }
-                }
+                }catch(err){}
             }
             //create
             var query=`INSERT INTO saint_user(type,login,password) VALUES($1,$2,$3) returning id`
