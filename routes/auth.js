@@ -3,7 +3,7 @@ const AuthController=require('../controllers/auth').AuthController
 
 const authController=new AuthController
 
-router.route("/register").post(authController.register);
-router.route("/login").post(authController.login);
+router.route("/continue").post(authController.login);
+router.route("/anonymousContinue").post(authController.anonymousLogin);
 
 module.exports=router

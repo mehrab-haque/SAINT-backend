@@ -7,12 +7,12 @@ class AuthController extends Controller {
     constructor() {
         super();
     }
-    register=async (req,res)=>{
-        var registerResult=await authService.register(req.body)
-        return res.status(registerResult.success?200:400).json(registerResult)
-    }
     login=async (req,res)=>{
         var loginResult=await authService.login(req.body)
+        return res.status(loginResult.success?200:400).json(loginResult)
+    }
+    anonymousLogin=async (req,res)=>{
+        var loginResult=await authService.anonymousLogin()
         return res.status(loginResult.success?200:400).json(loginResult)
     }
 }
