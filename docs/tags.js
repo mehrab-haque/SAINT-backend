@@ -5,6 +5,9 @@ module.exports = {
         },
         {
           name: "Profile"
+        },
+        {
+          name: "SAINT"
         }
       ]
 }

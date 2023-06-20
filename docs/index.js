@@ -1,4 +1,3 @@
-
 const basicInfo = require('./basicInfo');
 const servers = require('./servers');
 const components = require('./components');
@@ -162,6 +161,74 @@ module.exports = {
                     }
                 }
             },
-        }
+        },
+        '/saint/list': {
+            get: {
+                security: [
+                    {
+                      bearerAuth: [],
+                    },
+                  ],
+                tags: ["SAINT"], // operation's tag
+                description: "Get list of SAINT of current users", // short desc
+                operationId: "saintList", // unique operation id
+                parameters: [], // expected params
+                requestBody: {
+                    
+                },
+                "responses": {
+                    "200": {
+                        "description": "SAINT List"
+                    },
+                    "400": {
+                        "description": "SAINT list Fetch Failed"
+                    }
+                }
+            },
+        },
+        '/saint/create': {
+            post: {
+                security: [
+                    {
+                      bearerAuth: [],
+                    },
+                  ],
+                tags: ["SAINT"], // operation's tag
+                description: "Create SAINT", // short desc
+                operationId: "saintCreate", // unique operation id
+                parameters: [], // expected params
+                requestBody: {
+                    // expected request body
+                    content: {
+                        // content-type
+                        "application/json": {
+                            schema: {
+                                $ref: "#/components/schemas/saint", // todo input data model
+                            },
+                        },
+                    },
+                },
+                "responses": {
+                    "200": {
+                        "description": "SAINT creation Successful",
+                        "schema": {
+                            "type": "object"
+                            
+                        }
+                    },
+                    "400": {
+                        "description": "SAINT creation Failed",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+        },
     }
 };

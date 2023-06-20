@@ -58,6 +58,21 @@ module.exports = {
                     }
     
                 }
+            },
+            saint:{
+                hidden:true,
+                type:"object",
+                properties:{
+                    input:{
+                        type:"object",
+                        description:"saint input data formatted from frontend"
+                    },
+                    isPublic:{
+                        type:"boolean",
+                        description:"Whether this SAINT can be availed publicly or not",
+                        example:"true"
+                    }    
+                }
             }
         }
     }

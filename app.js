@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors')
 const bodyParser=require('body-parser')
+
 const adminAuthRoutes=require('./routes/auth')
 const profileRoutes=require('./routes/profile')
+const saintRoutes=require('./routes/saint')
+
 const swaggarUi=require('swagger-ui-express')
 const docs = require('./docs')
 const app = express();
@@ -25,5 +28,6 @@ app.get("/ping", function (req, res) {
 
 app.use('/auth', adminAuthRoutes);
 app.use('/profile', profileRoutes);
+app.use('/saint', saintRoutes);
 
 module.exports = app;
