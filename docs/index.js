@@ -186,6 +186,25 @@ module.exports = {
                 }
             },
         },
+        '/saint/listAll': {
+            get: {
+                tags: ["SAINT"], // operation's tag
+                description: "Get list of all public SAINTs", // short desc
+                operationId: "saintListAll", // unique operation id
+                parameters: [], // expected params
+                requestBody: {
+                    
+                },
+                "responses": {
+                    "200": {
+                        "description": "SAINT List"
+                    },
+                    "400": {
+                        "description": "SAINT list Fetch Failed"
+                    }
+                }
+            },
+        },
         '/saint/create': {
             post: {
                 security: [
