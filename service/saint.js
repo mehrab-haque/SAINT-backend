@@ -31,7 +31,7 @@ class SaintService extends Service {
     }
 
     listAll=async ()=>{
-        var query= `select * from saint_saint s, saint_user u where s.is_public= $1 and u.id=s.user_id order by s.starting_timestamp desc`
+        var query= `select u.name,u.institution ,u.field,  u.email, s.*  from saint_saint s, saint_user u where s.is_public= $1 and u.id=s.user_id order by s.starting_timestamp desc`
         var params=[true]
         var result=await this.query(query,params)
         var saints=result.data
@@ -51,13 +51,10 @@ class SaintService extends Service {
                 email:s.email
             }
             delete saints[i].name
+            delete saints[i].user_id
             delete saints[i].institution
             delete saints[i].field
             delete saints[i].email
-            delete saints[i].login
-            delete saints[i].password
-            delete saints[i].type
-            delete saints[i].user_id
         })
         result.data=saints
         return result

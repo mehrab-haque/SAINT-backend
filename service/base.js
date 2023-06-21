@@ -22,7 +22,6 @@ class Service{
                 data: data.rows
             }
         } catch (error) {
-            console.log(error)
             return {
                 success: false,
                 error
