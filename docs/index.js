@@ -4,6 +4,20 @@ const components = require('./components');
 const tags = require('./tags');
 
 
+/*
+
+{
+    openapi:'3.0.0',
+    info:{
+        title:'SAINT Backend API',
+        version:'1.0.0'
+    }
+}
+
+[1,2,3]
+
+*/
+
 module.exports = {
     ...basicInfo,
     ...servers,
@@ -172,7 +186,11 @@ module.exports = {
                 tags: ["SAINT"], // operation's tag
                 description: "Get list of SAINT of current users", // short desc
                 operationId: "saintList", // unique operation id
-                parameters: [], // expected params
+                parameters: [{
+                    in:'query',
+                    name:'count',
+                    description:'Course id of the module you want to create'
+                  }],
                 requestBody: {
                     
                 },
