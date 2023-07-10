@@ -10,7 +10,7 @@ class SaintService extends Service {
         return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
       }
     list=async req=>{
-        var query= `select * from saint_saint where user_id = $1 order by starting_timestamp desc`
+        var query= `select * from saint_saint where user_id = $1 order by starting_timestamp desc ${Object.keys(req.query).indexOf('count')>=0?`limit ${req.query.count}`:''}`
         var params=[req.body.user_id]
         var result=await this.query(query,params)
         var saints=result.data
@@ -29,10 +29,13 @@ class SaintService extends Service {
         return result
     }
     create=async ({input,isPublic,user_id})=>{
-        var query=`insert into saint_saint(input,is_public,user_id,starting_timestamp,estimated_ending_timestamp) VALUES ($1,$2,$3,$4,$5)`
+        var query=`insert into saint_saint(input,is_public,user_id,starting_timestamp,estimated_ending_timestamp) VALUES ($1,$2,$3,$4,$5) returning id`
         var params=[input,isPublic,user_id,parseInt(Date.now()/1000),parseInt(Date.now()/1000)+this.getRandomInt(120,240)]
         var result=await this.query(query,params)
-        return result
+        return {
+            success:true,
+            id:result.data[0].id
+        }
     }
 
     listAll=async ()=>{
