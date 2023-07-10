@@ -1,4 +1,9 @@
+const { sampleOutput } = require('../util/constants');
+
 const Service = require('./base').Service;
+
+
+
 
 class SaintService extends Service {
     constructor() {
@@ -20,7 +25,7 @@ class SaintService extends Service {
             saints[i].update_value=currentTimeSeconds>=s.estimated_ending_timestamp?1:(currentTimeSeconds-s.starting_timestamp)/(s.estimated_ending_timestamp-s.starting_timestamp)
             if(currentTimeSeconds>=s.estimated_ending_timestamp)
                 saints[i].output={
-                    data:'SAINT OUTPUT'
+                    data:sampleOutput
                 }
             saints[i]['current_server_timestamp_seconds']=currentTimeSeconds
             delete saints[i].user_id
@@ -49,7 +54,7 @@ class SaintService extends Service {
             saints[i].update_value=currentTimeSeconds>=s.estimated_ending_timestamp?1:(currentTimeSeconds-s.starting_timestamp)/(s.estimated_ending_timestamp-s.starting_timestamp)
             if(currentTimeSeconds>=s.estimated_ending_timestamp)
                 saints[i].output={
-                    data:'SAINT OUTPUT'
+                    data:sampleOutput
                 }
             saints[i]['current_server_timestamp_seconds']=currentTimeSeconds
             saints[i]['profile']={
