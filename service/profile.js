@@ -1,4 +1,7 @@
 const Service = require('./base').Service;
+const SaintService=require('./saint').SaintService
+
+const saintService=new SaintService()
 
 class ProfileService extends Service {
     constructor() {
@@ -8,11 +11,23 @@ class ProfileService extends Service {
         var query= `select name, institution, field, email from saint_user where id = $1`
         var params=[req.body.user_id]
         var result=await this.query(query,params)
+
+        var list=await saintService.list(req)
+
+        var nRunning=0
+        list.data.map(l=>{
+            if(l.update_value<1)
+                nRunning++
+        })
+
         if(result.data.length===0){
             result.success=false
             result.data=null
         }else
-        result.data=result.data[0]
+        result.data={
+            ...result.data[0],
+            nRunning
+        }
         return result
     }
     update=async ({name,institution,field,email,user_id})=>{

@@ -33,9 +33,10 @@ class SaintService extends Service {
         result.data=saints
         return result
     }
+
     create=async ({input,isPublic,user_id})=>{
         var query=`insert into saint_saint(input,is_public,user_id,starting_timestamp,estimated_ending_timestamp) VALUES ($1,$2,$3,$4,$5) returning id`
-        var params=[input,isPublic,user_id,parseInt(Date.now()/1000),parseInt(Date.now()/1000)+this.getRandomInt(120,240)]
+        var params=[input,isPublic,user_id,parseInt(Date.now()/1000),parseInt(Date.now()/1000)+this.getRandomInt(180,240)]
         var result=await this.query(query,params)
         return {
             success:true,
