@@ -34,13 +34,21 @@ class SaintService extends Service {
         return result
     }
 
-    create=async ({input,isPublic,user_id})=>{
-        var query=`insert into saint_saint(input,is_public,user_id,starting_timestamp,estimated_ending_timestamp) VALUES ($1,$2,$3,$4,$5) returning id`
-        var params=[input,isPublic,user_id,parseInt(Date.now()/1000),parseInt(Date.now()/1000)+this.getRandomInt(180,240)]
-        var result=await this.query(query,params)
+    create=async ({input,isPublic,user_id})=>{      
+        var valuesString=``
+        var valueParams=[]
+        input.data.map((d,ind)=>{
+            valuesString+=`(`
+            for (var i=1;i<=5;i++)
+                valuesString+=`$${ind*5+i}${i<5?',':''}`
+            valuesString+=`)${ind<input.data.length-1?',':''}`
+            valueParams.push(...[d,isPublic,user_id,parseInt(Date.now()/1000),parseInt(Date.now()/1000)+this.getRandomInt(180,240)])
+        })
+        var query=`insert into saint_saint(input,is_public,user_id,starting_timestamp,estimated_ending_timestamp) VALUES ${valuesString} returning id`
+        var result=await this.query(query,valueParams)
         return {
             success:true,
-            id:result.data[0].id
+            ids:result.data.map(d=>d.id)
         }
     }
 
