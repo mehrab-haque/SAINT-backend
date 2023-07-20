@@ -1,3 +1,5 @@
+const { validateEmail } = require('../util/utils');
+
 const Service = require('./base').Service;
 const SaintService=require('./saint').SaintService
 
@@ -31,10 +33,17 @@ class ProfileService extends Service {
         return result
     }
     update=async ({name,institution,field,email,user_id})=>{
-        var query=`update saint_user set name = $1, institution = $2, field = $3, email = $4 where id = $5`
-        var params=[name,institution,field,email,user_id]
-        var result=await this.query(query,params)
-        return result
+        if(validateEmail(email)){
+            var query=`update saint_user set name = $1, institution = $2, field = $3, email = $4 where id = $5`
+            var params=[name,institution,field,email,user_id]
+            var result=await this.query(query,params)
+            return result
+        }else
+            return {
+                success:false,
+                error:'invalid email'
+            }
+        
     }
 }
 

@@ -8,6 +8,9 @@ module.exports = {
         },
         {
           name: "SAINT"
+        },
+        {
+          name: "CAPTCHA"
         }
       ]
 }

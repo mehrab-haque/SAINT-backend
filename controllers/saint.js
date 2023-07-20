@@ -12,11 +12,16 @@ class SaintController extends Controller {
         return res.status(result.success?200:400).json(result)
     }
     listAll=async (req,res)=>{
-        var result=await saintService.listAll()
+        var result=await saintService.listAll(req)
         return res.status(result.success?200:400).json(result)
     }
     create=async (req,res)=>{
         var result=await saintService.create(req.body)
+        return res.status(result.success?200:400).json(result)
+    }
+
+    getCaptcha=async (req,res)=>{
+        var result=await saintService.getCaptcha(req)
         return res.status(result.success?200:400).json(result)
     }
 }
