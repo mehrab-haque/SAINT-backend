@@ -189,7 +189,17 @@ module.exports = {
                 parameters: [{
                     in:'query',
                     name:'count',
-                    description:'Course id of the module you want to create'
+                    description:'count of results (if count param is present, then pageNo and countPerPage params will be ignored)'
+                  },
+                  {
+                    in:'query',
+                    name:'pageNo',
+                    description:'page number of pagination'
+                  },
+                  {
+                    in:'query',
+                    name:'countPerPage',
+                    description:'count of entries per page'
                   }],
                 requestBody: {
                     
@@ -209,7 +219,19 @@ module.exports = {
                 tags: ["SAINT"], // operation's tag
                 description: "Get list of all public SAINTs", // short desc
                 operationId: "saintListAll", // unique operation id
-                parameters: [], // expected params
+                parameters: [{
+                    in:'query',
+                    name:'pageNo',
+                    description:'page number of pagination',
+                    required:true
+                  },
+                  {
+                    in:'query',
+                    name:'countPerPage',
+                    description:'count of entries per page',
+                    required:true
+                  }
+                ],
                 requestBody: {
                     
                 },
@@ -267,5 +289,28 @@ module.exports = {
                 }
             },
         },
+        '/saint/getCaptcha': {
+            get: {
+                tags: ["CAPTCHA"], // operation's tag
+                description: "Get a captcha", // short desc
+                operationId: "getCaptcha", // unique operation id
+                parameters: [{
+                    in:'query',
+                    name:'captchaId',
+                    description:'reloadCaptchaId'
+                  }],
+                requestBody: {
+                    
+                },
+                "responses": {
+                    "200": {
+                        "description": "CAPTCHA SVG"
+                    },
+                    "400": {
+                        "description": "CAPTCHA Failed"
+                    }
+                }
+            },
+        }
     }
 };
