@@ -6,10 +6,8 @@ const pool = new Pool({
     database: process.env.DB_DB,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    ssl:true
+    ssl: { rejectUnauthorized: false }
 })
-
-
 
 class Service{
     constructor() {}
@@ -22,6 +20,7 @@ class Service{
                 data: data.rows
             }
         } catch (error) {
+            console.log(error)
             return {
                 success: false,
                 error
