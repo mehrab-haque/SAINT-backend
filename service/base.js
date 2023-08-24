@@ -9,6 +9,21 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 })
 
+console.log({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DB,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+    ssl: { rejectUnauthorized: false }
+})
+
+pool.connect().then(res=>{
+    console.log('connected')
+}).catch(err=>{
+    console.log(err)
+})
+
 class Service{
     constructor() {}
 
