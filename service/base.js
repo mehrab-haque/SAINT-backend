@@ -6,7 +6,7 @@ const pool = new Pool({
     database: process.env.DB_DB,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    ssl: true
+    ssl: { rejectUnauthorized: false }
 })
 
 console.log({
@@ -15,7 +15,7 @@ console.log({
     database: process.env.DB_DB,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    ssl: true
+    ssl: { rejectUnauthorized: false }
 })
 
 pool.connect().then(res=>{
