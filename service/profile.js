@@ -10,10 +10,6 @@ class ProfileService extends Service {
         super();
     }
     get=async req=>{
-
-        return {
-            user_id:req.body.user_id
-        }
         var query= `select name, institution, field, email from saint_user where id = $1`
         var params=[req.body.user_id]
         var result=await this.query(query,params)
