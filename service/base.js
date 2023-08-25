@@ -6,23 +6,10 @@ const pool = new Pool({
     database: process.env.DB_DB,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    ssl: true
+    ssl:true
 })
 
-console.log({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DB,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    ssl: true
-})
 
-pool.connect().then(res=>{
-    console.log('connected')
-}).catch(err=>{
-    console.log(err)
-})
 
 class Service{
     constructor() {}
@@ -35,7 +22,6 @@ class Service{
                 data: data.rows
             }
         } catch (error) {
-            console.log(error)
             return {
                 success: false,
                 error
