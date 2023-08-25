@@ -9,6 +9,12 @@ const pool = new Pool({
     ssl:true
 })
 
+pool.connect().then(res=>{
+    console.log('Connected...')
+}).catch(err=>{
+    console.log(err)
+})
+
 
 
 class Service{
@@ -22,6 +28,7 @@ class Service{
                 data: data.rows
             }
         } catch (error) {
+            console.log(error)
             return {
                 success: false,
                 error
